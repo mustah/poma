@@ -20,57 +20,49 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:output method="text"/>
-<xsl:template match="JarAnalyzer">
-<Root-Element>
-digraph g {
-        graph [
-	    rankdir = "LR"
-	];
-	node [
-	    fontsize = "12"
-	    fontname = "Courier"
-	    shape = "ellipse"
-	];
-	edge[];
-	<xsl:apply-templates select="Jars"/>
-}
-</Root-Element>
-</xsl:template>
+  <xsl:output method="text"/>
+  <xsl:template match="JarAnalyzer">
+    <Root-Element>
+      digraph g { graph [ rankdir = "LR" ]; node [ fontsize = "12" fontname = "Courier" shape = "ellipse" ]; edge[];
+      <xsl:apply-templates select="Jars"/>
+      }
+    </Root-Element>
+  </xsl:template>
 
-<xsl:template match="Jars">
+  <xsl:template match="Jars">
     <xsl:apply-templates select="Jar" mode="node"/>
-</xsl:template>
+  </xsl:template>
 
-<xsl:template match="Jar" mode="node">
+  <xsl:template match="Jar" mode="node">
     <xsl:text>"</xsl:text><xsl:value-of select="@name"/> <xsl:text>" [
         label="</xsl:text><xsl:value-of
-	select="@name"/><xsl:text> | Total Packages: </xsl:text><xsl:value-of select="Summary/Statistics/PackageCount/."/>
+    select="@name"/><xsl:text> | Total Packages: </xsl:text><xsl:value-of select="Summary/Statistics/PackageCount/."/>
 	<xsl:text>"
 	shape="record"
 	color=".99 </xsl:text>
-        <xsl:choose>
-            <xsl:when test="Summary/Metrics/Distance">
-                <xsl:value-of select="Summary/Metrics/Distance/."/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:text>0.0</xsl:text>
-            </xsl:otherwise>
-        </xsl:choose>
+    <xsl:choose>
+      <xsl:when test="Summary/Metrics/Distance">
+        <xsl:value-of select="Summary/Metrics/Distance/."/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>0.0</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
         <xsl:text> .9"
 	style=filled
     ];
     </xsl:text>
     <xsl:apply-templates select="Summary/OutgoingDependencies"/>
-</xsl:template>
+  </xsl:template>
 
-<xsl:template match="Jar" mode="edge">
-    <xsl:text>"</xsl:text><xsl:value-of select="../../../@name"/> <xsl:text>" -&gt; "</xsl:text><xsl:value-of select="."/><xsl:text>"
+  <xsl:template match="Jar" mode="edge">
+    <xsl:text>"</xsl:text><xsl:value-of select="../../../@name"/>
+    <xsl:text>" -&gt; "</xsl:text><xsl:value-of select="."/><xsl:text>"
     </xsl:text>
-</xsl:template>
+  </xsl:template>
 
-<xsl:template match="Summary/OutgoingDependencies">
+  <xsl:template match="Summary/OutgoingDependencies">
     <xsl:apply-templates select="Jar" mode="edge"/>
-</xsl:template>
+  </xsl:template>
 
 </xsl:stylesheet>

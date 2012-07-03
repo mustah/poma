@@ -1,10 +1,11 @@
 package com.extensiblejava.calculator;
 
-import com.extensiblejava.order.*;
 import java.math.BigDecimal;
+
+import com.extensiblejava.order.Order;
 
 public interface DiscountCalculator {
 
-	public BigDecimal calculateDiscount(Order[] orders);
-	
+  public BigDecimal calculateDiscount(Order[] orders);
+
 }

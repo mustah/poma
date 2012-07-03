@@ -1,12 +1,12 @@
 package com.extensiblejava.route;
 
-import com.extensiblejava.bill.*;
+import com.extensiblejava.bill.Bill;
 
 public class TypeARouter extends Router {
 
-	public String route(Bill bill) {
-		//route to location based on A routable type.
-		return "A_LOCATION_";
-	}
+  public String route(Bill bill) {
+    //route to location based on A routable type.
+    return "A_LOCATION_";
+  }
 
 }

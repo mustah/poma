@@ -1,5 +1,6 @@
 package com.extensiblejava.order;
 
 public interface OrderBuilder {
-	public Order[] build();
+
+  public Order[] build();
 }
